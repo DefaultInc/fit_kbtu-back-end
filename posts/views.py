@@ -33,7 +33,7 @@ def post_detail(request, pk):
     """
     try:
         post = Post.objects.get(pk=pk)
-    except Snippet.DoesNotExist:
+    except Post.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
