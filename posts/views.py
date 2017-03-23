@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from .models import Post
-from .serializers import PostSerializer
+from .serializers import PostSerializer, PostShortSerializer
 
 # Create your views here.
 
@@ -15,7 +15,7 @@ def post_list(request):
     """
     if request.method == 'GET':
         posts = Post.objects.all()
-        serializer = PostSerializer(posts, many=True)
+        serializer = PostShortSerializer(posts, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
