@@ -25,7 +25,7 @@ SECRET_KEY = 'p0zi^0q9y@@e#9=)8@st-(q3&rly(402!!l-pqfa6f2#szwjg#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'posts',
 ]
@@ -49,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -120,3 +123,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# For local testing purposes
+######################################
+CORS_ORIGIN_ALLOW_ALL = True
+
+# this is the list of allowed origins for cross domain ajax
+CORS_ORIGIN_WHITELIST = (
+        'localhost:4200',
+)
+######################################

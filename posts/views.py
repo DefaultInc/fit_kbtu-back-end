@@ -8,7 +8,6 @@ from .serializers import PostSerializer, PostShortSerializer
 
 # Create your views here.
 
-@csrf_exempt
 def post_list(request):
     """
     List all posts, or create a new post.
