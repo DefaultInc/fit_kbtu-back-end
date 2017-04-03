@@ -1,18 +1,26 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+
+from rest_framework.decorators import permission_classes, authentication_classes, api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 from .models import Post
 from .serializers import PostSerializer, PostShortSerializer
 
 # Create your views here.
-
+@api_view(['GET', 'POST'])
+@authentication_classes([JSONWebTokenAuthentication, ])
+@permission_classes([IsAuthenticated, ])
 def post_list(request):
     """
     List all posts, or create a new post.
     """
     if request.method == 'GET':
+        print(request.user)
         posts = Post.objects.all()
         serializer = PostShortSerializer(posts, many=True)
         return JsonResponse(serializer.data, safe=False)
@@ -25,7 +33,8 @@ def post_list(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
-@csrf_exempt
+
+
 def post_detail(request, pk):
     """
     Retrieve, update or delete a post.
