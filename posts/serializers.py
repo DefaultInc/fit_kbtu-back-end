@@ -4,6 +4,7 @@ from authentication.serializers import UserSerializer
 from .models import Post, Comment
 
 class CommentSerializer(serializers.ModelSerializer):
+    author = UserSerializer(many=False)
     class Meta:
         model = Comment
         fields = ('id', 'content', 'publish_date', 'author')
