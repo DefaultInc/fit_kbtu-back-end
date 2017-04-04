@@ -1,11 +1,12 @@
+from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import permission_classes, authentication_classes, api_view
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import JSONParser
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-
-from .models import Post
+from .models import Post, Comment
 from .serializers import PostSerializer, PostShortSerializer
+import json
 
 
 # Create your views here.
@@ -25,12 +26,14 @@ def post_create(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
+
 # @api_view(['GET'])
 def post_list(request):
     if request.method == 'GET':
         posts = Post.objects.all()
         serializer = PostShortSerializer(posts, many=True)
         return JsonResponse(serializer.data, safe=False)
+
 
 def post_detail(request, pk):
     """
