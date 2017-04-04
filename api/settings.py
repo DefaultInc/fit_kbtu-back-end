@@ -120,14 +120,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # For local testing purposes
-######################################
-# CORS_ORIGIN_ALLOW_ALL = True
-#
-# # this is the list of allowed origins for cross domain ajax
-# CORS_ORIGIN_WHITELIST = (
-#         'localhost:4200',
-# )
-######################################
+#####################################
+CORS_ORIGIN_ALLOW_ALL = True
+
+# this is the list of allowed origins for cross domain ajax
+CORS_ORIGIN_WHITELIST = (
+        'localhost:4200',
+)
+#####################################
 
 AUTH_USER_MODEL = 'authentication.User'
 
