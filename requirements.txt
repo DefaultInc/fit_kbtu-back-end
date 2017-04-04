@@ -3,3 +3,4 @@ djangorestframework==3.6.2
 Pygments==2.2.0
 djangorestframework-jwt==1.10.0
 django-cors-headers==2.0.2
+Pillow==4.0.0

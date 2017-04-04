@@ -1,11 +1,9 @@
-from django.contrib.auth import get_user_model
+from authentication.models import User
 from rest_framework import serializers
-from rest_framework_jwt.serializers import User
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = (
             'username',
             'password',
@@ -15,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        user = get_user_model().objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
         return user
 
     def update(self, instance, validated_data):
