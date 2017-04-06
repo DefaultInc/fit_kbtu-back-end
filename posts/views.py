@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import JSONParser
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from .models import Post, Comment
-from .serializers import PostSerializer, PostShortSerializer, CommentSerializer
+from .serializers import PostSerializer, PostShortSerializer, CommentSerializer, CommentCreateSerializer
 import json
 
 
@@ -32,7 +32,8 @@ def post_create(request):
 def comment_create(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = CommentSerializer(data=data)
+        print(data)
+        serializer = CommentCreateSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
