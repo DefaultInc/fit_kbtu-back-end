@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from authentication.serializers import UserSerializer
+from authentication.serializers import UserSerializer, UserShortSerializer
 from .models import Post, Comment
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -17,6 +17,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments')
 
 class PostShortSerializer(serializers.ModelSerializer):
+    author = UserShortSerializer(many=False)
     class Meta:
         model = Post
         fields = ('id', 'title', 'short_description', 'publish_date', 'author')
