@@ -71,6 +71,7 @@ def like_post(request):
         # dislike
         if post_author_likes.exists():
             post_author_likes[0].delete()
+            return JsonResponse(data)
         else:
             serializer = LikeCreateSerializer(data=data)
             if serializer.is_valid():
