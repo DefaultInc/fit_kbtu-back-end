@@ -22,7 +22,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
 
 class LikeSerializer(serializers.ModelSerializer):
-    author = UserShortSerializer(many=False)
+    # author = UserShortSerializer(many=False)
 
     class Meta:
         model = Like
