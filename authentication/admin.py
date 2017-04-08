@@ -9,12 +9,13 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
+    username = forms.CharField(label='Username', widget=forms.TextInput)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'avatar', 'phone')
+        fields = ('username', 'email', 'first_name', 'last_name', 'avatar', 'phone')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -27,6 +28,7 @@ class UserCreationForm(forms.ModelForm):
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super(UserCreationForm, self).save(commit=False)
+        user.username = self.cleaned_data["username"]
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
@@ -89,7 +91,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('password1', 'password2')}
+            'fields': ('username', 'password1', 'password2')}
         ),
     )
     search_fields = ('email',)
