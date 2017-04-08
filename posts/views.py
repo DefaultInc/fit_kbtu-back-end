@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse, request
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import permission_classes, authentication_classes, api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import JSONParser
@@ -34,6 +35,7 @@ def post_create(request):
 def comment_create(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
+        # author is defined by his JWT token, improce readability
         data['author'] = request.user.id
         serializer = CommentCreateSerializer(data=data)
         if serializer.is_valid():

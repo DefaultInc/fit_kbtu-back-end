@@ -11,7 +11,6 @@ class Post(models.Model):
     publish_date = models.DateTimeField(auto_now_add=True, null=False)
     author = models.ForeignKey(User, null=False, related_name='posts', on_delete=models.CASCADE)
 
-
 class Comment(models.Model):
     content = models.TextField(null=False)
     publish_date = models.DateTimeField(auto_now_add=True, null=False)
