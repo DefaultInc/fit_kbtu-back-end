@@ -41,10 +41,11 @@ class LikeCreateSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True)
     author = UserShortSerializer(many=False)
+    likes = LikeSerializer(many=True)
 
     class Meta:
         model = Post
-        fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments',)
+        fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments', 'likes')
 
 
 class PostShortSerializer(serializers.ModelSerializer):
