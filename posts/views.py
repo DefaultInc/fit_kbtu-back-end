@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import permission_classes, authentication_classes, api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from authentication.models import User
@@ -10,8 +11,6 @@ from authentication.serializers import UserSerializer
 from .models import Post, Comment
 from .serializers import PostSerializer, PostShortSerializer, CommentSerializer, CommentCreateSerializer, \
     LikeSerializer, LikeCreateSerializer
-import json
-
 
 # Create your views here.
 @api_view(['POST'])
