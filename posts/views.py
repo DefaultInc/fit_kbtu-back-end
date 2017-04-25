@@ -7,10 +7,11 @@ from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from authentication.models import User
-from authentication.serializers import UserSerializer
+from authentication.serializers import UserSerializer, UserPictureSerializer
 from .models import Post, Comment
 from .serializers import PostSerializer, PostShortSerializer, CommentSerializer, CommentCreateSerializer, \
     LikeSerializer, LikeCreateSerializer
+
 
 # Create your views here.
 @api_view(['POST'])
@@ -44,6 +45,7 @@ def comment_create(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
+
 def like_exists(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
@@ -56,6 +58,7 @@ def like_exists(request):
         if serializer.is_valid():
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
 
 @api_view(['POST'])
 @authentication_classes([JSONWebTokenAuthentication, ])
@@ -111,3 +114,10 @@ def post_detail(request, pk):
     elif request.method == 'DELETE':
         post.delete()
         return HttpResponse(status=204)
+
+
+def get_all_pictures(request):
+    if request.method == 'GET':
+        users = User.objects.all()
+        serializer = UserPictureSerializer(users, many=True)
+        return JsonResponse(serializer.data, safe=False)

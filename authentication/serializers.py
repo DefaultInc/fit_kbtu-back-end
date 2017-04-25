@@ -1,6 +1,7 @@
 from authentication.models import User
 from rest_framework import serializers
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -25,9 +26,20 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         return super(UserSerializer, self).update(instance, validated_data)
 
+
 class UserShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
             'username',
         )
+
+
+class UserPictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'username',
+            'avatar',
+        )
+

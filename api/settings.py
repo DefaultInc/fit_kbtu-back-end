@@ -125,7 +125,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # this is the list of allowed origins for cross domain ajax
 CORS_ORIGIN_WHITELIST = (
-        'localhost:4200',
+    'localhost:4200',
 )
 #####################################
 
@@ -145,3 +145,8 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=3650),
 }
+
+PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..')
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT)
+MEDIA_URL = '/Images/'
