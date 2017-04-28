@@ -11,6 +11,7 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ('content', 'publish_date', 'author', 'post',)
 
+
 class CommentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
@@ -26,7 +27,7 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = ('author',)
-        
+
 
 class LikeCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,7 +45,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments', 'likes')
+        fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments', 'likes', 'image',)
 
 
 class PostShortSerializer(serializers.ModelSerializer):
@@ -53,7 +54,8 @@ class PostShortSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'title', 'short_description', 'publish_date', 'author', 'likes', 'comments', 'image')
+        fields = ('id', 'title', 'short_description', 'publish_date', 'author', 'likes', 'comments', 'image',)
+
 
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
