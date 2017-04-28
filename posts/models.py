@@ -12,6 +12,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, null=False, related_name='posts', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='Images/', blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     content = models.TextField(null=False)
