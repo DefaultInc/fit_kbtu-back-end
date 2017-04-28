@@ -1,13 +1,15 @@
 from django.http import HttpResponse, JsonResponse, request
 from django.shortcuts import get_object_or_404
+from rest_framework import generics
 from rest_framework.decorators import permission_classes, authentication_classes, api_view
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from authentication.models import User
 from authentication.serializers import UserSerializer, UserPictureSerializer
+from posts.paginators import StandardResultsSetPagination
 from .models import Post, Comment
 from .serializers import PostSerializer, PostShortSerializer, CommentSerializer, CommentCreateSerializer, \
     LikeSerializer, LikeCreateSerializer, PostCreateSerializer
@@ -81,6 +83,13 @@ def like_post(request):
                 return JsonResponse(serializer.data, status=201)
             return JsonResponse(serializer.errors, status=400)
 
+
+class PostList(generics.ListAPIView):
+    permission_classes = (AllowAny,)
+    model = Post
+    queryset = Post.objects.all()
+    serializer_class = PostShortSerializer
+    pagination_class = StandardResultsSetPagination
 
 # @api_view(['GET'])
 def post_list(request):
