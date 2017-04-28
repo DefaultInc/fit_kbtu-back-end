@@ -53,4 +53,12 @@ class PostShortSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'title', 'short_description', 'publish_date', 'author', 'likes', 'comments',)
+        fields = ('id', 'title', 'short_description', 'publish_date', 'author', 'likes', 'comments', 'image')
+
+class PostCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('title', 'content', 'author',)
+
+    def create(self, validated_data):
+        return Post.objects.create(**validated_data)

@@ -10,12 +10,15 @@ class Post(models.Model):
     content = models.TextField(null=False)
     publish_date = models.DateTimeField(auto_now_add=True, null=False)
     author = models.ForeignKey(User, null=False, related_name='posts', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='Images/', blank=True, null=True)
+
 
 class Comment(models.Model):
     content = models.TextField(null=False)
     publish_date = models.DateTimeField(auto_now_add=True, null=False)
     author = models.ForeignKey(User, null=False, related_name='comments', on_delete=models.CASCADE)
     post = models.ForeignKey(Post, null=False, related_name='comments', on_delete=models.CASCADE)
+
 
 class Like(models.Model):
     post = models.ForeignKey(Post, null=False, related_name='likes', on_delete=models.CASCADE)

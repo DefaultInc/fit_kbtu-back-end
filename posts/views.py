@@ -10,7 +10,7 @@ from authentication.models import User
 from authentication.serializers import UserSerializer, UserPictureSerializer
 from .models import Post, Comment
 from .serializers import PostSerializer, PostShortSerializer, CommentSerializer, CommentCreateSerializer, \
-    LikeSerializer, LikeCreateSerializer
+    LikeSerializer, LikeCreateSerializer, PostCreateSerializer
 
 
 # Create your views here.
@@ -24,7 +24,7 @@ def post_create(request):
 
     if request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = PostSerializer(data=data)
+        serializer = PostCreateSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
