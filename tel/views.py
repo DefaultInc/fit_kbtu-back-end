@@ -8,7 +8,8 @@ from rest_framework.permissions import AllowAny
 
 from posts.paginators import StandardResultsSetPagination
 from tel.models import Telephone
-from tel.serializers import TelephoneSerializer, TelephoneCreateSerializer
+from tel.serializers import TelephoneSerializer, TelephoneCreateSerializer, TelephoneUpdateSerializer
+
 
 class TelList(generics.ListAPIView):
     permission_classes = (AllowAny,)
@@ -37,7 +38,7 @@ def tel_detail(request, pk):
         return JsonResponse(serializer.data)
     if request.method == 'POST':
         data = JSONParser().parse(request)
-        serializer = TelephoneSerializer(telephone, data=data)
+        serializer = TelephoneUpdateSerializer(telephone, data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)

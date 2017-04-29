@@ -18,3 +18,10 @@ class TelephoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Telephone
         fields = ('id', 'user_name', 'phone', 'created_date',)
+
+class TelephoneUpdateSerializer(serializers.ModelSerializer):
+    created_date = serializers.DateTimeField()
+
+    class Meta:
+        model = Telephone
+        fields = ('id', 'user_name', 'phone',)
