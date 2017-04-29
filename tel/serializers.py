@@ -6,7 +6,7 @@ from tel.models import Telephone
 class TelephoneCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Telephone
-        fields = ('id', 'user_name', 'phone',)
+        fields = ('user_name', 'phone',)
 
     def create(self, validated_data):
         return Telephone.objects.create(**validated_data)
