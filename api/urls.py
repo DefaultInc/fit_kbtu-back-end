@@ -23,7 +23,6 @@ from api import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('posts.urls')),
-    url(r'^tel/', include('tel.urls')),
     url(r'^auth/', include('authentication.urls')),
     url(r'^auth/verify/', verify_jwt_token),
     url(r'^auth/refresh/', refresh_jwt_token),

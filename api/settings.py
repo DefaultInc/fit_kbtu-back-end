@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'posts',
     'authentication',
-    'tel',
     # 'channels',
     # 'channels_framework',
     # 'channels_api',
