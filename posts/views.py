@@ -4,6 +4,7 @@ from rest_framework import generics
 from rest_framework.decorators import permission_classes, authentication_classes, api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
@@ -91,6 +92,7 @@ class PostList(generics.ListAPIView):
     serializer_class = PostShortSerializer
     pagination_class = StandardResultsSetPagination
 
+
 # @api_view(['GET'])
 def post_list(request):
     if request.method == 'GET':
@@ -98,9 +100,25 @@ def post_list(request):
         serializer = PostShortSerializer(posts, many=True)
         return JsonResponse(serializer.data, safe=False)
 
+
+class PostByTag(generics.ListAPIView):
+    permission_classes = (AllowAny,)
+    pagination_class = StandardResultsSetPagination
+    serializer_class = KeywordSortSerializer
+
+    def get_queryset(self):
+        keywords = Keyword.objects.filter(tag_id=int(self.kwargs['pk']))
+        for keyword in keywords:
+            if keywords.filter(post_id=keyword.id).count() > 1:
+                keywords.exclude(keyword)
+        return keywords
+
 def post_by_tag(request, pk):
     if request.method == 'GET':
         keywords = Keyword.objects.filter(tag_id=pk)
+        for keyword in keywords:
+            if keywords.filter(post_id=keyword.id).count() > 1:
+                keyword.delete()
         serializer = KeywordSortSerializer(keywords, many=True)
         return JsonResponse(serializer.data, safe=False)
 

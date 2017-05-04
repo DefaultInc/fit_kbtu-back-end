@@ -53,11 +53,14 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ('id', 'name',)
 
+
 class KeywordSerializer(serializers.ModelSerializer):
     tag = TagSerializer(many=False)
+
     class Meta:
         model = Keyword
         fields = ('tag',)
+
 
 class PostShortSerializer(serializers.ModelSerializer):
     author = UserShortSerializer(many=False)
@@ -67,12 +70,27 @@ class PostShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = (
-        'id', 'title', 'short_description', 'publish_date',
-        'author', 'likes', 'comments', 'image', 'keywords',
+            'id', 'title', 'short_description', 'publish_date',
+            'author', 'likes', 'comments', 'image', 'keywords',
         )
 
+
+class PostSortSerializer(serializers.ModelSerializer):
+    author = UserShortSerializer(many=False)
+    likes = LikeSerializer(many=True)
+    keywords = KeywordSerializer(many=True)
+
+    class Meta:
+        model = Post
+        fields = (
+            'id', 'title', 'short_description', 'publish_date',
+            'author', 'likes', 'comments', 'image', 'keywords',
+        )
+
+
 class KeywordSortSerializer(serializers.ModelSerializer):
-    post = PostShortSerializer(many=False)
+    post = PostSortSerializer(many=False)
+
     class Meta:
         model = Keyword
         fields = ('post',)

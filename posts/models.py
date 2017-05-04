@@ -34,9 +34,13 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+
 class Keyword(models.Model):
     tag = models.ForeignKey(Tag, related_name='keywords')
     post = models.ForeignKey(Post, related_name='keywords')
 
+    class Meta:
+        unique_together = (('tag', 'post'))
+
     def __str__(self):
-        return  str(self.id)
+        return str(self.id)
