@@ -26,3 +26,17 @@ class Comment(models.Model):
 class Like(models.Model):
     post = models.ForeignKey(Post, null=False, related_name='likes', on_delete=models.CASCADE)
     author = models.ForeignKey(User, null=False, related_name='likes', on_delete=models.CASCADE)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=256, null=False, blank=False)
+
+    def __str__(self):
+        return self.name
+
+class Keyword(models.Model):
+    tag = models.ForeignKey(Tag, related_name='keywords')
+    post = models.ForeignKey(Post, related_name='keywords')
+
+    def __str__(self):
+        return  str(self.id)

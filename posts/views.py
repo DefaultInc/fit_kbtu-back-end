@@ -10,9 +10,9 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from authentication.models import User
 from authentication.serializers import UserSerializer, UserPictureSerializer
 from posts.paginators import StandardResultsSetPagination
-from .models import Post, Comment
+from .models import Post, Comment, Keyword
 from .serializers import PostSerializer, PostShortSerializer, CommentSerializer, CommentCreateSerializer, \
-    LikeSerializer, LikeCreateSerializer, PostCreateSerializer
+    LikeSerializer, LikeCreateSerializer, PostCreateSerializer, KeywordSortSerializer
 
 
 # Create your views here.
@@ -98,6 +98,12 @@ def post_list(request):
         serializer = PostShortSerializer(posts, many=True)
         return JsonResponse(serializer.data, safe=False)
 
+def post_by_tag(request, pk):
+    if request.method == 'GET':
+        keywords = Keyword.objects.filter(tag_id=pk)
+        serializer = KeywordSortSerializer(keywords, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
 
 def post_detail(request, pk):
     """
@@ -123,10 +129,3 @@ def post_detail(request, pk):
     elif request.method == 'DELETE':
         post.delete()
         return HttpResponse(status=204)
-
-
-def get_all_pictures(request):
-    if request.method == 'GET':
-        users = User.objects.all()
-        serializer = UserPictureSerializer(users, many=True)
-        return JsonResponse(serializer.data, safe=False)

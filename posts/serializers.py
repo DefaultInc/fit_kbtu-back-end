@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from authentication.serializers import UserSerializer, UserShortSerializer
-from .models import Post, Comment, Like
+from .models import Post, Comment, Like, Keyword, Tag
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -48,13 +48,34 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments', 'likes', 'image',)
 
 
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ('id', 'name',)
+
+class KeywordSerializer(serializers.ModelSerializer):
+    tag = TagSerializer(many=False)
+    class Meta:
+        model = Keyword
+        fields = ('tag',)
+
 class PostShortSerializer(serializers.ModelSerializer):
     author = UserShortSerializer(many=False)
     likes = LikeSerializer(many=True)
+    keywords = KeywordSerializer(many=True)
 
     class Meta:
         model = Post
-        fields = ('id', 'title', 'short_description', 'publish_date', 'author', 'likes', 'comments', 'image',)
+        fields = (
+        'id', 'title', 'short_description', 'publish_date',
+        'author', 'likes', 'comments', 'image', 'keywords',
+        )
+
+class KeywordSortSerializer(serializers.ModelSerializer):
+    post = PostShortSerializer(many=False)
+    class Meta:
+        model = Keyword
+        fields = ('post',)
 
 
 class PostCreateSerializer(serializers.ModelSerializer):

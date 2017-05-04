@@ -41,9 +41,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'posts',
     'authentication',
-    # 'channels',
-    # 'channels_framework',
-    # 'channels_api',
 ]
 
 MIDDLEWARE = [
@@ -155,10 +152,3 @@ PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..')
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT)
 MEDIA_URL = '/Images/'
-
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "asgiref.inmemory.ChannelLayer",
-#         "ROUTING": "api.routing.channel_routing",
-#     },
-# }
