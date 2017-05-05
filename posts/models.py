@@ -34,6 +34,8 @@ class Like(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=256, null=False, blank=False)
     users = models.ManyToManyField(User, related_name='tags')
+    color = models.CharField(max_length=256, null=True, blank=True,)
+    url = models.CharField(max_length=256, null=True, blank=True,)
 
     def __str__(self):
         return self.name
