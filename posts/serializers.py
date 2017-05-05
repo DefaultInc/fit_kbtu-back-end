@@ -86,7 +86,7 @@ class KeywordSortSerializer(serializers.ModelSerializer):
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('title', 'content', 'author', 'short_description')
+        fields = ('title', 'content', 'author', 'short_description', 'image')
 
     def create(self, validated_data):
         return Post.objects.create(**validated_data)
