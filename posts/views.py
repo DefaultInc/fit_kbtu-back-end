@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from authentication.models import User
-from authentication.serializers import UserSerializer, UserPictureSerializer
+from authentication.serializers import UserSerializer
 from posts.paginators import StandardResultsSetPagination
 from .models import Post, Comment, Keyword
 from .serializers import PostSerializer, PostShortSerializer, CommentSerializer, CommentCreateSerializer, \

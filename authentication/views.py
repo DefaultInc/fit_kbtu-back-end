@@ -25,9 +25,9 @@ def register(request):
 @api_view(['GET', 'PUT', ])
 @authentication_classes([JSONWebTokenAuthentication, ])
 @permission_classes([IsAuthenticated, ])
-def user_profile(request, pk):
+def user_profile(request):
     try:
-        user = User.objects.get(pk=pk)
+        user = request.user
     except User.DoesNotExist:
         return HttpResponse(status=404)
 
@@ -36,8 +36,6 @@ def user_profile(request, pk):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
-        if user != request.user:
-            return Http404("Poll does not exist")
         data = JSONParser().parse(request)
         serializer = UserSerializer(user, data=data)
         if serializer.is_valid():

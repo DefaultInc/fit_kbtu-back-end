@@ -35,12 +35,3 @@ class UserShortSerializer(serializers.ModelSerializer):
             'id',
             'username',
         )
-
-
-class UserPictureSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = (
-            'username',
-            'avatar',
-        )
