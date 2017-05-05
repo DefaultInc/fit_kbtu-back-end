@@ -40,7 +40,7 @@ class LikeCreateSerializer(serializers.ModelSerializer):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ('id', 'name',)
+        fields = ('id', 'name', 'color', 'url')
 
 
 class KeywordSerializer(serializers.ModelSerializer):
