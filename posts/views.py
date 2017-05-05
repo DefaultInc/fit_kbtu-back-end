@@ -113,15 +113,6 @@ class PostByTag(generics.ListAPIView):
                 keywords.exclude(keyword)
         return keywords
 
-def post_by_tag(request, pk):
-    if request.method == 'GET':
-        keywords = Keyword.objects.filter(tag_id=pk)
-        for keyword in keywords:
-            if keywords.filter(post_id=keyword.id).count() > 1:
-                keyword.delete()
-        serializer = KeywordSortSerializer(keywords, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
 
 def post_detail(request, pk):
     """

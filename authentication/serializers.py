@@ -8,9 +8,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'username',
-            'password',
             'first_name',
             'last_name',
+            'avatar',
+            'phone',
         )
         extra_kwargs = {
             'password': {'write_only': True},
@@ -42,4 +43,3 @@ class UserPictureSerializer(serializers.ModelSerializer):
             'username',
             'avatar',
         )
-

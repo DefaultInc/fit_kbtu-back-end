@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from .views import post_list, post_detail, comment_create, like_post, like_exists, post_create, \
-    PostList, post_by_tag, PostByTag
+    PostList, PostByTag
 
 urlpatterns = [
     url(r'^posts/create/$', post_create),

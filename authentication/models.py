@@ -7,4 +7,3 @@ from django.db import models
 class User(AbstractUser):
     phone = models.CharField(max_length=128, blank=True, null=True)
     avatar = models.ImageField(upload_to='Images/', blank=True, null=True)
-
