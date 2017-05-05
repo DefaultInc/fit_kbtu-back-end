@@ -13,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
             'avatar',
             'phone',
             'email',
+            'show_contact_info',
         )
         extra_kwargs = {
             'password': {'write_only': True},

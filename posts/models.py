@@ -22,6 +22,9 @@ class Comment(models.Model):
     author = models.ForeignKey(User, null=False, related_name='comments', on_delete=models.CASCADE)
     post = models.ForeignKey(Post, null=False, related_name='comments', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.content
+
 
 class Like(models.Model):
     post = models.ForeignKey(Post, null=False, related_name='likes', on_delete=models.CASCADE)
@@ -31,6 +34,7 @@ class Like(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=256, null=False, blank=False)
     users = models.ManyToManyField(User, related_name='tags')
+
     def __str__(self):
         return self.name
 
