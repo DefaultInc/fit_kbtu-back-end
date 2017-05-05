@@ -75,21 +75,8 @@ class PostShortSerializer(serializers.ModelSerializer):
         )
 
 
-class PostSortSerializer(serializers.ModelSerializer):
-    author = UserShortSerializer(many=False)
-    likes = LikeSerializer(many=True)
-    keywords = KeywordSerializer(many=True)
-
-    class Meta:
-        model = Post
-        fields = (
-            'id', 'title', 'short_description', 'publish_date',
-            'author', 'likes', 'comments', 'image', 'keywords',
-        )
-
-
 class KeywordSortSerializer(serializers.ModelSerializer):
-    post = PostSortSerializer(many=False)
+    post = PostShortSerializer(many=False)
 
     class Meta:
         model = Keyword
@@ -99,7 +86,7 @@ class KeywordSortSerializer(serializers.ModelSerializer):
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('title', 'content', 'author',)
+        fields = ('title', 'content', 'author', 'short_description')
 
     def create(self, validated_data):
         return Post.objects.create(**validated_data)
