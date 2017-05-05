@@ -1,3 +1,4 @@
+from PIL import Image
 from django.http import JsonResponse, HttpResponse, Http404
 
 # Create your views here.

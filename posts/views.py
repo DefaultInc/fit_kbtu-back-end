@@ -27,6 +27,7 @@ def post_create(request):
 
     if request.method == 'POST':
         data = JSONParser().parse(request)
+        data['author'] = request.user.id
         serializer = PostCreateSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
