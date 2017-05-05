@@ -11,9 +11,9 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from authentication.models import User
 from authentication.serializers import UserSerializer
 from posts.paginators import StandardResultsSetPagination
-from .models import Post, Comment, Keyword
+from .models import Post, Comment, Keyword, Tag
 from .serializers import PostSerializer, PostShortSerializer, CommentSerializer, CommentCreateSerializer, \
-    LikeSerializer, LikeCreateSerializer, PostCreateSerializer, KeywordSortSerializer
+    LikeSerializer, LikeCreateSerializer, PostCreateSerializer, KeywordSortSerializer, TagSerializer
 
 
 # Create your views here.
@@ -92,6 +92,13 @@ class PostList(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostShortSerializer
     pagination_class = StandardResultsSetPagination
+
+
+class TagList(generics.ListAPIView):
+    permission_classes = (AllowAny,)
+    model = Tag
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 # @api_view(['GET'])
