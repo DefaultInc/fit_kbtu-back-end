@@ -37,17 +37,6 @@ class LikeCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Like.objects.create(**validated_data)
 
-
-class PostSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True)
-    author = UserShortSerializer(many=False)
-    likes = LikeSerializer(many=True)
-
-    class Meta:
-        model = Post
-        fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments', 'likes', 'image', 'keywords',)
-
-
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
@@ -61,6 +50,15 @@ class KeywordSerializer(serializers.ModelSerializer):
         model = Keyword
         fields = ('tag',)
 
+class PostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True)
+    author = UserShortSerializer(many=False)
+    likes = LikeSerializer(many=True)
+    keywords = KeywordSerializer(many=True)
+
+    class Meta:
+        model = Post
+        fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments', 'likes', 'image', 'keywords',)
 
 class PostShortSerializer(serializers.ModelSerializer):
     author = UserShortSerializer(many=False)
