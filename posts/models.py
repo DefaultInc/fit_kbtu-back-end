@@ -30,7 +30,7 @@ class Like(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=256, null=False, blank=False)
-
+    users = models.ManyToManyField(User, related_name='tags')
     def __str__(self):
         return self.name
 
