@@ -42,3 +42,13 @@ def user_profile(request):
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
+
+def get_user_info(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = UserSerializer(user)
+        return JsonResponse(serializer.data)
