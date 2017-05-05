@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from .views import post_list, post_detail, comment_create, like_post, like_exists, post_create, \
-    PostList, PostByTag
+    PostList, PostByTag, TagList
 
 urlpatterns = [
     url(r'^posts/create/$', post_create),
@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^comments/$', comment_create),
     url(r'^like/$', like_post),
     url(r'posts_by_tag/(?P<pk>[0-9]+)/$', PostByTag.as_view()),
+    url(r'tags/$', TagList.as_view()),
 ]
