@@ -52,10 +52,10 @@ class Base64ImageField(serializers.ImageField):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    avatar = Base64ImageField(
-        max_length=None, use_url=True,
-    )
 
+    avatar = Base64ImageField(
+        max_length=None, use_url=True, required=False
+    )
     class Meta:
         model = User
         fields = (
@@ -67,7 +67,6 @@ class UserSerializer(serializers.ModelSerializer):
             'phone',
             'email',
             'show_contact_info',
-            'groups',
         )
         extra_kwargs = {
             'password': {'write_only': True},
