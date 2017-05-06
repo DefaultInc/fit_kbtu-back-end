@@ -57,7 +57,7 @@ class PostSerializer(serializers.ModelSerializer):
     keywords = KeywordSerializer(many=True)
     image = Base64ImageField(
         max_length=None, use_url=True,
-        allow_null=True,
+        allow_null=True, required=False,
     )
 
     class Meta:
