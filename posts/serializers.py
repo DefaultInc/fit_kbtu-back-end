@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from authentication.serializers import UserSerializer, UserShortSerializer
+from authentication.serializers import UserSerializer, UserShortSerializer, Base64ImageField
 from .models import Post, Comment, Like, Keyword, Tag
 
 
@@ -55,6 +55,10 @@ class PostSerializer(serializers.ModelSerializer):
     author = UserShortSerializer(many=False)
     likes = LikeSerializer(many=True)
     keywords = KeywordSerializer(many=True)
+    image = Base64ImageField(
+        max_length=None, use_url=True,
+        allow_null=True,
+    )
 
     class Meta:
         model = Post
