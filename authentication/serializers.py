@@ -58,8 +58,11 @@ class UserSerializer(serializers.ModelSerializer):
         max_length=None, use_url=True, required=False, allow_null=True
     )
 
+    email = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())], required=True, )
+
     class Meta:
         model = User
+        write_only_fields = 'password'
         fields = (
             'id',
             'username',
@@ -69,14 +72,11 @@ class UserSerializer(serializers.ModelSerializer):
             'phone',
             'email',
             'show_contact_info',
+            'password',
         )
-        extra_kwargs = {
-            'password': {'write_only': True},
-        }
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
+        return User.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
         if 'password' in validated_data:
