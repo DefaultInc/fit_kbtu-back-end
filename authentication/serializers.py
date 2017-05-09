@@ -1,6 +1,7 @@
 from authentication.models import User
 from rest_framework import serializers
 
+
 class Base64ImageField(serializers.ImageField):
     """
     A Django REST framework field for handling image-uploads through raw post data.
@@ -29,6 +30,7 @@ class Base64ImageField(serializers.ImageField):
             try:
                 decoded_file = base64.b64decode(data)
             except TypeError:
+                data
                 self.fail('invalid_image')
 
             # Generate file name:
@@ -52,10 +54,10 @@ class Base64ImageField(serializers.ImageField):
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     avatar = Base64ImageField(
         max_length=None, use_url=True, required=False, allow_null=True
     )
+
     class Meta:
         model = User
         fields = (
