@@ -37,6 +37,7 @@ class LikeCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Like.objects.create(**validated_data)
 
+
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
@@ -49,6 +50,7 @@ class KeywordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Keyword
         fields = ('tag',)
+
 
 class PostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True)
@@ -63,6 +65,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'title', 'content', 'publish_date', 'author', 'comments', 'likes', 'image', 'keywords',)
+
 
 class PostShortSerializer(serializers.ModelSerializer):
     author = UserShortSerializer(many=False)
@@ -86,11 +89,13 @@ class KeywordSortSerializer(serializers.ModelSerializer):
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
-    keywords = KeywordSerializer(many=True)
+    image = Base64ImageField(
+        max_length=None, use_url=True, required=False, allow_null=True
+    )
 
     class Meta:
         model = Post
-        fields = ('title', 'content', 'author', 'short_description', 'image', 'keywords',)
+        fields = ('title', 'content', 'author', 'short_description', 'image',)
 
     def create(self, validated_data):
         return Post.objects.create(**validated_data)
