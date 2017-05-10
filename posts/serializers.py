@@ -89,9 +89,7 @@ class KeywordSortSerializer(serializers.ModelSerializer):
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
-    image = Base64ImageField(
-        max_length=None, use_url=True, required=False, allow_null=True
-    )
+    image = Base64ImageField(max_length=None, use_url=True, required=False, allow_null=True, )
 
     class Meta:
         model = Post
