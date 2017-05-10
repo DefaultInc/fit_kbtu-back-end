@@ -60,7 +60,7 @@ class UserSerializer(serializers.ModelSerializer):
         max_length=None, use_url=True, required=False, allow_null=True
     )
 
-    email = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())], required=True, )
+    email = serializers.EmailField()
 
     class Meta:
         model = User
