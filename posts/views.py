@@ -124,7 +124,7 @@ class PostByTags(generics.ListAPIView):
         if ids is not None:
             ids = [int(x) for x in ids.split(',')]
             keywords = Keyword.objects.filter(tag_id__in=ids)
-            if keywords.__len__() < 2:
+            if keywords.__len__() >= 2:
                 for keyword in keywords:
                     if keywords.filter(post_id=keyword.id).count() > 1:
                         keywords.exclude(keyword)
