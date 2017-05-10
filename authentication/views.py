@@ -21,6 +21,7 @@ def register(request):
             UserSerializer.create(serialized, data)
             return JsonResponse(serialized.data, status=status.HTTP_201_CREATED)
         else:
+            print(data)
             return JsonResponse(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', ])
