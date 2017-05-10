@@ -101,14 +101,6 @@ class TagList(generics.ListAPIView):
     serializer_class = TagSerializer
 
 
-# @api_view(['GET'])
-def post_list(request):
-    if request.method == 'GET':
-        posts = Post.objects.all()
-        serializer = PostShortSerializer(posts, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
-
 class PostByTag(generics.ListAPIView):
     permission_classes = (AllowAny,)
     pagination_class = StandardResultsSetPagination

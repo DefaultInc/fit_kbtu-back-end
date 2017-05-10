@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import post_list, post_detail, comment_create, like_post, like_exists, post_create, \
+from .views import post_detail, comment_create, like_post, like_exists, post_create, \
     PostList, PostByTag, TagList
 
 urlpatterns = [
