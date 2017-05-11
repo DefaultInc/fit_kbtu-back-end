@@ -10,5 +10,4 @@ urlpatterns = [
     url(r'^like/$', like_post),
     url(r'posts_by_tag/(?P<pk>[0-9]+)/$', PostByTag.as_view()),
     url(r'tags/$', PostByTags.as_view()),
-    # url(r'tags/(?P<pk>[0-9]+)/$', PostByTags.as_view()),
 ]

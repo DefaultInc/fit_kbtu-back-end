@@ -118,16 +118,17 @@ class PostByTags(generics.ListAPIView):
     permission_classes = (AllowAny,)
     pagination_class = StandardResultsSetPagination
     serializer_class = KeywordSortSerializer
-
+    model = Keyword
     def get_queryset(self):
         ids = self.request.query_params.get('ids', None)
         if ids is not None:
             ids = [int(x) for x in ids.split(',')]
             keywords = Keyword.objects.filter(tag_id__in=ids)
             if keywords.__len__() >= 2:
+                # keywords = keywords.distinct('post_id')
                 for keyword in keywords:
-                    if keywords.filter(post_id=keyword.id).count() > 1:
-                        keywords.exclude(keyword)
+                    if keywords.filter(post_id=keyword.post_id).count() > 1:
+                        keywords = keywords.exclude(id=keyword.id)
         else:
             keywords = Keyword.objects.all()
         return keywords
