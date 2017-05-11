@@ -101,6 +101,19 @@ class TagList(generics.ListAPIView):
     serializer_class = TagSerializer
 
 
+def tag_detail(request, pk):
+    """
+    Retrieve, update or delete a post.
+    """
+    try:
+        tag = Tag.objects.get(pk=pk)
+    except Tag.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = TagSerializer(tag)
+        return JsonResponse(serializer.data)
+
 class PostByTag(generics.ListAPIView):
     permission_classes = (AllowAny,)
     pagination_class = StandardResultsSetPagination
@@ -119,6 +132,7 @@ class PostByTags(generics.ListAPIView):
     pagination_class = StandardResultsSetPagination
     serializer_class = KeywordSortSerializer
     model = Keyword
+
     def get_queryset(self):
         ids = self.request.query_params.get('ids', None)
         if ids is not None:
